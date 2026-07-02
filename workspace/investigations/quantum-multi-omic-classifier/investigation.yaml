@@ -98,6 +98,6 @@ studies:
 
 acceptance_criteria:
   - study: quantum-classifier-evaluation
-    behavior: quantum_auc_beats_baselines
+    behavior: "Quantum classifier AUC-ROC is within 0.05 of the Random Forest baseline AUC-ROC."
   - study: v2ecoli-real-data
-    behavior: loader_produces_valid_features
+    behavior: "ZarrMultiOmicLoader returns non-None for at least 3 modality paths from a real v2ecoli zarr store."

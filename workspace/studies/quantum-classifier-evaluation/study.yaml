@@ -1,0 +1,91 @@
+schema_version: 4
+name: quantum-classifier-evaluation
+investigation: quantum-multi-omic-classifier
+created: "2026-07-02"
+status: planned
+phase: Design
+
+design_status: planned
+implementation_status: not_started
+simulation_status: not_run
+evaluation_status: not_evaluated
+
+title: Quantum Classifier Evaluation — GenotypeToPhenotypeProcess on Synthetic Multi-Omic Data
+
+question: >
+  Can the GenotypeToPhenotypeProcess match or exceed classical ML baselines
+  in predicting binary phenotypes from synthetic multi-omic data?
+
+objective: |
+  Train the GenotypeToPhenotypeProcess with M=4 modalities, F=6 features per
+  modality on synthetic data, and compare accuracy, AUC-ROC, F1, precision,
+  and recall against RF and LR baselines.
+
+hypothesis: >
+  The quantum classifier will achieve competitive AUC-ROC (>= 0.80) on
+  synthetic data with strong cross-modality interactions, benefiting from
+  the CNOT entanglement chain.
+
+report:
+  title: "Quantum Classifier Evaluation"
+  verdict: Not yet evaluated
+  verdict_status: not-yet-run
+  key_metrics:
+    - name: Test Accuracy
+      expected: ">= 0.75"
+    - name: AUC-ROC
+      expected: ">= 0.80"
+    - name: F1 Score
+      expected: ">= 0.70"
+
+study_card:
+  goal: "Evaluate the multi-qubit quantum classifier against classical baselines."
+  mechanism: >
+    Each omic modality maps to a dedicated qubit via Rot encoding. A CNOT
+    chain entangles all qubits. Qubit 0's fidelity to the 'viable' state
+    gives the classification score. Adam optimizer, MSE cost, 6 epochs.
+  why_before_next: "This is the central evaluation for the investigation's primary research question."
+  expected_result: "Quantum AUC-ROC within 0.05 of RF baseline; F1 >= 0.70."
+
+description: >
+  This study runs the GenotypeToPhenotypeProcess on synthetic multi-omic
+  data with 4 modalities, 6 features per modality, 60 training and 100
+  test samples, 0.15 noise. The circuit uses M qubits, Rot encoding,
+  pre-entanglement rotations, a CNOT chain, post-entanglement rotations,
+  and fidelity measurement on qubit 0. Training: 6 epochs, Adam (lr=0.4),
+  batch size 16. The interactive Marimo notebook provides a walkthrough
+  with live plots and classical ML benchmarks computed side-by-side.
+
+baseline:
+  - name: quantum_4modality_6feat
+    composite: pbg_pennylane_data_reuploading.composites.genotype_phenotype.genotype_to_phenotype_mapping
+    params:
+      num_omic_modalities: 4
+      features_per_modality: 6
+      epochs: 6
+      batch_size: 16
+      num_train: 60
+      num_test: 100
+      seed: 42
+      noise_level: 0.15
+      learning_rate: 0.4
+
+parent_studies:
+  - study: genotype-phenotype-baseline
+    condition: ran
+
+expected_behavior:
+  - "Quantum classifier AUC-ROC is within 0.05 of the Random Forest baseline AUC-ROC."
+  - "Quantum classifier F1 score exceeds 0.70 on held-out test data."
+  - "Training loss converges below 0.25 by the final epoch."
+
+conclusion_verdicts:
+  regression_compatibility:
+    result: PENDING
+    basis: ""
+  biological_validation:
+    result: PENDING
+    basis: ""
+  explanatory_gain:
+    result: PENDING
+    basis: ""
