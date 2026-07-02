@@ -1,0 +1,103 @@
+schema_version: 2
+name: quantum-multi-omic-classifier
+title: Quantum Multi-Omic Classifier — Genotype-to-Phenotype Mapping via Data Re-Uploading
+created: "2026-07-02"
+status: planned
+
+question: >
+  Can a multi-qubit, cross-modality entangled quantum classifier outperform
+  classical ML baselines in predicting binary phenotypes from synthetic
+  multi-omic data?
+
+hypothesis: >
+  The entanglement-based architecture will capture cross-modality interactions
+  more effectively than classical methods, yielding higher AUC-ROC on held-out
+  test sets, especially when nonlinear interactions between modalities drive
+  phenotype.
+
+description: >
+  This investigation evaluates the GenotypeToPhenotypeProcess — an M-qubit
+  data-reuploading quantum classifier where each qubit encodes one omic
+  modality (genomics, transcriptomics, proteomics, metabolomics). A CNOT
+  chain entangles all modality qubits, enabling the circuit to learn
+  cross-modality interactions natively. Performance is benchmarked against
+  Random Forest and Logistic Regression on synthetic and (eventually) real
+  v2ecoli zarr data.
+
+executive:
+  what_is_this: >
+    An investigation into whether a purpose-built multi-qubit quantum
+    classifier can improve phenotype prediction from multi-omic data by
+    using entanglement to model biological cross-talk between molecular
+    layers.
+  verdict: "Not yet run — synthetic benchmarks planned."
+  verdict_status: not-yet-run
+  decisions_needed:
+    - "Which classical baselines to include (RF, LR, XGBoost, SVM)?"
+    - "What is the minimum acceptable AUC-ROC for claiming quantum advantage?"
+    - "Should evaluation use cross-validation or fixed train/test split?"
+
+scientific_argument:
+  main_claim: >
+    Multi-qubit entanglement-based classifiers can match or exceed
+    classical methods on multi-omic integration tasks with strong
+    cross-modality interactions.
+  evidence_for:
+    - "CNOT chain directly models pairwise modality interactions"
+    - "Quantum fidelity provides a continuous similarity score"
+    - "One qubit per modality preserves biological interpretability"
+  evidence_against:
+    - "Synthetic data may favor quantum circuits over classical methods"
+    - "Current simulation-only — no real hardware validation"
+    - "Small feature spaces may not expose quantum advantage"
+  caveats:
+    - "All results are from classical simulation of quantum circuits"
+    - "Synthetic data uses a known generative model that may bias results"
+    - "Real multi-omic validation (v2ecoli zarr) is not yet available"
+
+lead: >
+  Modern biology faces a fundamental integration problem: how do variations
+  across multiple molecular layers (genomics, transcriptomics, proteomics,
+  metabolomics) combine to determine phenotype? Classical ML approaches
+  struggle with the high dimensionality and nonlinear cross-modality
+  interactions inherent in multi-omic data. This investigation builds and
+  evaluates a multi-qubit quantum classifier where each omic modality maps
+  to a dedicated qubit, and entanglement directly encodes biological
+  cross-talk — a natural fit for the problem structure.
+
+biological_story: >
+  The central dogma of molecular biology describes information flow from
+  DNA → RNA → Protein → Metabolite → Phenotype. Each step is a nonlinear
+  transformation affected by the previous layer's state. In our quantum
+  classifier, each modality gets its own qubit: genomics on qubit 0,
+  transcriptomics on qubit 1, etc. Feature encoding via Rot gates maps
+  measured values into quantum rotations. A CNOT chain entangles adjacent
+  modality qubits (0↔1, 1↔2, 2↔3), mirroring the sequential cross-talk
+  of the central dogma. After training, the entanglement strength between
+  qubit pairs reflects learned biological interaction strength.
+
+at_a_glance:
+  - study: genotype-phenotype-baseline
+    role: "Establish baseline accuracy with Random Forest and Logistic Regression"
+  - study: quantum-classifier-evaluation
+    role: "Train and evaluate the GenotypeToPhenotypeProcess on synthetic multi-omic data"
+  - study: v2ecoli-real-data
+    role: "Validate on real v2ecoli zarr stores once available"
+
+how_to_read: >
+  Start with the synthetic data evaluation (study 2) to understand the
+  quantum classifier's behavior. Compare with study 1 (classical baselines).
+  Study 3 only applies once real v2ecoli data is available. The Marimo
+  notebook (demo/gt2p_quantum_classifier.py) provides an interactive
+  walkthrough.
+
+studies:
+  - genotype-phenotype-baseline
+  - quantum-classifier-evaluation
+  - v2ecoli-real-data
+
+acceptance_criteria:
+  - study: quantum-classifier-evaluation
+    behavior: quantum_auc_beats_baselines
+  - study: v2ecoli-real-data
+    behavior: loader_produces_valid_features
