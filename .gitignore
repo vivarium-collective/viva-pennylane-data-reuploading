@@ -10,10 +10,10 @@ demo/__marimo__/
 output/
 *.nc
 .idea/
-.pbg/
 
-
-# Added by pbg-superpowers in-place scaffolder
+# Everything under .pbg/ is generated EXCEPT the scaffolded schema files and
+# hpc.env.example, which are authored content. Use `.pbg/*` (not `.pbg/`) so the
+# re-includes below can un-ignore the schema files that CI's workspace lint needs.
 .pbg/*
 !.pbg/schemas/
 !.pbg/hpc.env.example
