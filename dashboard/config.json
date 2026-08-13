@@ -2,6 +2,6 @@
   "mode": "snapshot",
   "smsApiBase": "",
   "repo": "https://github.com/vivarium-collective/viva-pennylane-data-reuploading",
-  "commit": "3922b1de2fe6238bf30f5c3e4e4a54bc593c5747",
+  "commit": "eb794b5ea63fb03b5318e74311c2f9f36f430eb0",
   "generated_from_ref": "main"
 }
