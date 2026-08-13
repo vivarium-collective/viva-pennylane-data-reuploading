@@ -28,8 +28,21 @@ dependencies = [
     "plotly",
     "bigraph-viz>=2.0.3",
     "pypdf>=4.0",
-    "vivarium-dashboard",
+    "vivarium-workbench",
 ]
+
+[project.optional-dependencies]
+dev = ["pytest", "matplotlib", "plotly"]
+
+[tool.uv.sources]
+# vivarium-workbench (the dashboard/publish CLI) isn't on PyPI — resolve it from
+# git main so `uv sync` and the publish workflow can install it.
+vivarium-workbench = { git = "https://github.com/vivarium-collective/vivarium-workbench.git", branch = "main" }
+
+# Allow the git-direct-reference dep above (vivarium-workbench @ git+https://…) —
+# hatchling rejects direct references in metadata otherwise.
+[tool.hatch.metadata]
+allow-direct-references = true
 
 [project.urls]
 Homepage = "https://github.com/vivarium-collective/pbg-pennylane-data-reuploading"
