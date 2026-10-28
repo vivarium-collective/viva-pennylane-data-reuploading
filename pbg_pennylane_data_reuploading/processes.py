@@ -379,7 +379,9 @@ class GenotypeToPhenotypeProcess(Process):
         F = c["features_per_modality"]
         nfeat = M * F
         weights = c.get("modality_weights")
-        if weights is None:
+        # Schema defaults for list[float] may be materialized as [] rather
+        # than None, so treat empty/short as "use the default weights".
+        if not weights or len(weights) < M:
             weights = [1.0 + 0.5 * i for i in range(M)]  # later modalities weigh more
         noise = c["noise_level"]
 
